@@ -1,26 +1,31 @@
-import { useState } from "react";
-import "./App.css";
-import { users } from "./lib/users";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import LandingPage from "./components/LandingPage";
+import UsersList from "./components/UsersList";
+import UserDetails from "./components/UserDetails";
+
+const queryClient = new QueryClient();
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPage />,
+  },
+  {
+    path: "/users",
+    element: <UsersList />,
+  },
+  {
+    path: "/users/:id",
+    element: <UserDetails />,
+  },
+]);
 
 function App() {
   return (
-    <>
-      <h1 className="">New App Crud</h1>
-      <div className="flex">
-        <ul className="flex gap-4 justify-center">
-          {users.map((user) => {
-            return (
-              <li key={user.id}>
-                <h5>{user.name}</h5>
-                <h5>{user.email}</h5>
-                <h5>{user.password}</h5>
-                <h5>{user.phone}</h5>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 
