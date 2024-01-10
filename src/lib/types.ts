@@ -5,3 +5,10 @@ export type User = {
   email: string;
   phone: number;
 };
+
+export interface UserListFilter {
+  name: string;
+  email: string;
+  username: string;
+  phone: string;
+}
